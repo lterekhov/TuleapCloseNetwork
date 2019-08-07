@@ -1,0 +1,29 @@
+[epel]
+name=Extra Packages for Enterprise Linux 6 - $basearch
+baseurl=http://192.168.43.7:8081/repository/epel-tuleap/$basearch
+#mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=epel-6&arch=$basearch
+failovermethod=priority
+enabled=1
+protect=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/epel.repo.key
+
+[epel-debuginfo]
+name=Extra Packages for Enterprise Linux 6 - $basearch - Debug
+baseurl=http://192.168.43.7:8081/repository/epel-tuleap/$basearch/debug
+#mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=epel-debug-6&arch=$basearch
+failovermethod=priority
+enabled=1
+protect=0
+gpgkey=file:///etc/pki/rpm-gpg/epel.repo.key
+gpgcheck=1
+
+[epel-source]
+name=Extra Packages for Enterprise Linux 6 - $basearch - Source
+baseurl=http://192.168.43.7:8081/repository/epel-tuleap/SRPMS
+#mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=epel-source-6&arch=$basearch
+failovermethod=priority
+enabled=1
+protect=0
+gpgkey=file:///etc/pki/rpm-gpg/epel.repo.key
+gpgcheck=1

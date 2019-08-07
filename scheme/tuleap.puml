@@ -1,0 +1,97 @@
+@startuml tuleap_close_network
+
+cloud internet {
+    artifact Tuleap [
+    <b>Tuleap</b>
+    ---
+    https://ci.tuleap.net/yum/tuleap/rhel/6/dev/
+    ]
+
+    artifact Centos [
+    <b>centos</b>
+    ---
+    http://mirror.centos.org/centos/
+    ]
+
+
+    artifact Epel [
+    <b>epel</b>
+    ---
+    http://mirror.linux-ia64.org/epel/6/
+    ]
+
+
+    artifact Remirepo [
+    <b>remirepo</b>
+    ---
+    http://rpms.remirepo.net/enterprise/6/safe/
+    ]
+}
+
+node nexus {
+    artifact proxyTuleap [
+    <b>Tuleap proxy</b>
+    ]
+
+    artifact proxyCentos [
+    <b>Centos proxy</b>
+    ]
+
+    artifact proxyEpel [
+    <b>Epel proxy</b>
+    ]
+
+    artifact proxyRemirepo [
+    <b>Remirepo proxy</b>
+    ]
+}
+
+node server {
+    folder docker-tuleap {
+        file Dockerfile 
+        file dockercompose [
+            docker-compose.yml
+        ]
+        folder repos {
+            file epelrepo [
+                epel.repo
+            ]
+            file remisafe [
+                remi-safe.repo
+            ]
+            file CentOSBaserepo [
+                CentOS-Base.repo
+            ]
+            file Tuleaprepo [
+                Tuleap.repo
+            ]
+        }
+
+        epelrepo <-- Dockerfile
+        remisafe <-- Dockerfile
+        CentOSBaserepo <-- Dockerfile
+        Tuleaprepo <-- Dockerfile
+
+        Dockerfile <-- dockercompose
+    }
+}
+
+Tuleap <-- proxyTuleap
+Centos <-- proxyCentos
+Epel <-- proxyEpel
+Remirepo <-- proxyRemirepo
+
+proxyEpel <-- epelrepo
+proxyRemirepo <-- remisafe
+proxyCentos <-- CentOSBaserepo
+proxyTuleap <-- Tuleaprepo
+
+
+
+
+
+
+
+
+
+@enduml
