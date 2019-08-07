@@ -10,7 +10,7 @@
 
 Общая идея продемонстрирована на схеме ниже.
 
-![](scheme\tuleap_close_network.png)
+![](scheme/tuleap_close_network.png)
 
 Дальше берем nexus и docker-tuleap и переносим куда нужно уже без интернета.
 
@@ -73,7 +73,7 @@ https://github.com/Enalean/docker-tuleap-aio
 
 Настраиваем Tuleap и remi.
 
-![](images\tuleap-repos.png)
+![](images/tuleap-repos.png)
 
 #### centos
 
@@ -81,7 +81,7 @@ https://github.com/CentOS/sig-cloud-instance-images/tree/23b05f6a35520ebf338e4df
 
 Качаем архив, распаковываем и идем смотреть, какие репы нужно перенести
 
-![](images\centos-repos.png)
+![](images/centos-repos.png)
 
 Настраиваем CentOS-Base. Остальные делаем пустыми.
 
