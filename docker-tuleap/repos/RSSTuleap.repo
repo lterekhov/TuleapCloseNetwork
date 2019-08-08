@@ -1,6 +1,6 @@
 [RSSTuleap]
 name=RSS Tuleap
-baseurl=http://192.168.43.7:8081/repository/RSSTuleap/$basearch
+baseurl=http://127.0.0.1:8081/repository/RSSTuleap/$basearch
 enabled=1
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/rsstuleap-gpg.key

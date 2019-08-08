@@ -4,7 +4,7 @@
 
 [remi-safe]
 name=Safe Remi's RPM repository for Enterprise Linux 6 - $basearch
-baseurl=http://192.168.43.7:8081/repository/remirepo/$basearch/
+baseurl=http://127.0.0.1:8081/repository/remirepo/$basearch/
 #mirrorlist=https://rpms.remirepo.net/enterprise/6/safe/httpsmirror
 #mirrorlist=http://cdn.remirepo.net/enterprise/6/safe/mirror
 enabled=1
@@ -13,7 +13,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi
 
 [remi-safe-debuginfo]
 name=Remi's RPM repository for Enterprise Linux 6 - $basearch - debuginfo
-baseurl=http://192.168.43.7:8081/repository/remirepo-debug/$basearch/
+baseurl=http://127.0.0.1:8081/repository/remirepo-debug/$basearch/
 enabled=0
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi

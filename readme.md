@@ -99,6 +99,8 @@ https://github.com/sclorg/centos-release-scl/tree/master/centos-release-scl
 
 https://github.com/dayne/yum/blob/master/centos6/epel.repo
 
+Прилетает при установке [epel-release](https://github.com/Enalean/docker-tuleap-aio/blob/master/Dockerfile#L10)
+
 Настраиваем `epel.repo`
 
 Создаем пустой `epel-testing.repo`
@@ -128,11 +130,69 @@ $> docker load -i mysql.tar
 
 ## Запуск сборки
 
-Для сборки используем docker-compose
-
-Запуск
+Сначала собираем на машине с интернетом, потом берем nexus и файлы docker  и переносим на машину без интернета. Для сборки используем docker-compose.
 
 ```bash
 $> docker-compose up
 ```
 
+
+## Настройка после запуска контейнера
+
+Не уверен, но крайне не рекомендуется делать `chmod 777 -R data` в рабочем каталоге. Ломает gitolite. 
+
+### Доступ к сертификатам
+
+https://github.com/Enalean/docker-tuleap-aio/issues/59
+
+В файле `data/tuleap-data/etc/nginx/conf.d/tuleap.conf`
+
+Изменить 
+
+```
+ssl_certificate /etc/pki/tls/certs/localhost.cert.pem;
+ssl_certificate_key /etc/pki/tls/private/localhost.key.pem;
+```
+
+На
+
+```
+ssl_certificate /etc/pki/tls/certs/localhost.crt;
+ssl_certificate_key /etc/pki/tls/private/localhost.key;
+```
+
+### Основные настройки
+
+Основные конфигурационные параметры расположены в файле `data/tuleap-data/etc/tuleap/conf/local.inc`
+
+Для настроек почты не должно использоваться IP адресов. Только домены. Иначе будут ошибки при создании треков и прочих объектов с нотификацией. 
+Особое внимание уделить настройке `$sys_default_mail_domain`
+
+### Пароль администратора
+
+```
+$> /data/root/.tuleap_passwd
+```
+
+## Журналы ошибок
+
+https://docs.tuleap.org/administration-guide/system-administration/logs.html
+
+Для получения всех логов можно воспользоваться скриптом [get_all_logs.sh](docker-tuleap/get_all_logs.sh)
+
+```bash
+$> ./get_all_logs.sh dockertuleap_app_1
+```
+
+## Последовательность действий
+
+1. Устанавливаем nexus
+2. Настраиваем proxy репозитории
+3. Клонируем репозиторий docker-tuleap-aio
+4. Настраиваем файлы конфигурации репозиториев на nexus репозитории корректируя Dockerfile
+5. Настраиваем docker-compose
+6. Собираем image
+7. Сохраняем производные images нужные для нашего image в файл (centos, mysql)
+8. Копируем рабочий каталог nexus, и производные images, и файлы сборки docker (./docker-tuleap) на флэш накопитель 
+9. Переносим все в закрытую сеть и настраиваем
+10. Собираем image и запускаем контейнер

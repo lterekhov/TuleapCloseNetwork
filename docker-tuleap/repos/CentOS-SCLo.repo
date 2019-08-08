@@ -5,7 +5,7 @@
 
 [centos-sclo-sclo]
 name=CentOS-$releasever - SCLo SCLGROUP
-baseurl=http://192.168.43.7:8081/repository/centos/$releasever/sclo/$basearch/sclo/
+baseurl=http://127.0.0.1:8081/repository/centos/$releasever/sclo/$basearch/sclo/
 #mirrorlist=http://mirrorlist.centos.org?arch=$basearch&release=$releasever&repo=sclo-SCLGROUP
 gpgcheck=1
 enabled=1
@@ -13,7 +13,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo
 
 [centos-sclo-sclo-testing]
 name=CentOS-$releasever - SCLo SCLGROUP Testing
-baseurl=http://192.168.43.7:8081/repository/centos-testing/$releasever/sclo/$basearch/sclo/
+baseurl=http://127.0.0.1:8081/repository/centos-testing/$releasever/sclo/$basearch/sclo/
 gpgcheck=1
 enabled=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo
