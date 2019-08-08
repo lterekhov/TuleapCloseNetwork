@@ -168,11 +168,103 @@ ssl_certificate_key /etc/pki/tls/private/localhost.key;
 Для настроек почты не должно использоваться IP адресов. Только домены. Иначе будут ошибки при создании треков и прочих объектов с нотификацией. 
 Особое внимание уделить настройке `$sys_default_mail_domain`
 
+### Настройка портов
+
+Порты объявленные в **docker-compose.yml** должны быть настроены в `local.inc`
+
+**docker-compose.yml**
+
+```yaml
+...
+services:
+ app:
+  build: ./
+  restart: unless-stopped
+  ports:
+   - 8585:80
+   - 4443:443
+...
+```
+
+**local.inc**
+
+```ini
+$sys_default_domain = '<your_host_or_id>:8585'
+$sys_https_host = '<your_host_or_id>:4443'
+```
+
 ### Пароль администратора
 
 ```
 $> /data/root/.tuleap_passwd
 ```
+
+### Отключение ssl
+
+https://github.com/Enalean/docker-tuleap-aio/issues/20#issuecomment-254517027
+
+Если необходимо отключить ssl, то:
+
+* в файле `local.inc` параметр `$sys_https_host` делаем пустым   
+
+* настраиваем nginx (./data/tuleap_data/etc/nginx):
+
+  * удаляем <u>./data/tuleap_data/etc/nginx/conf.d/default.conf</u> (лучше перенести в субкаталог **delete**)
+  * правим <u>./data/tuleap_data/etc/nginx/conf.d/tuleap.conf</u>, удаляем 443 сервер, дорабатываем 80
+
+  ```ini
+  upstream tuleap-apache {
+      server 127.0.0.1:8080;
+  }
+  
+  upstream tuleap-php-fpm {
+      server 127.0.0.1:9000;
+  }
+  
+  upstream tuleap-php-fpm-long-running-request {
+      server 127.0.0.1:9002;
+  }
+  
+  #server {
+  #        listen       443 ssl http2;
+  #        server_name  1.0.0.137;
+  #
+  #        ssl_certificate /etc/pki/tls/certs/localhost.crt;
+  #        ssl_certificate_key /etc/pki/tls/private/localhost.key;
+  #        ssl_session_timeout 1d;
+  #        ssl_session_cache shared:SSL:50m;
+  #        ssl_session_tickets off;
+  #
+  #        # modern configuration. tweak to your needs.
+  #        ssl_protocols TLSv1.2;
+  #        ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256';
+  #        ssl_prefer_server_ciphers on;
+  #
+  #        # Tweak for file upload and SVN
+  #        client_max_body_size 256M;
+  #
+  #        include conf.d/tuleap.d/*.conf;
+  #}
+  
+  server {
+      listen       80;
+      server_name  1.0.0.137;
+  
+      location /.well-known/ {
+        root /opt/letsencrypt;
+      }
+  
+      #location / {
+      # return 301 https://$server_name:443$request_uri;
+      #}
+  
+      client_max_body_size 256M;
+  
+      include conf.d/tuleap.d/*.conf;
+  }
+  ```
+
+  
 
 ## Журналы ошибок
 
