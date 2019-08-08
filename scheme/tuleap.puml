@@ -28,7 +28,7 @@ cloud internet {
     ]
 }
 
-node nexus {
+component nexus {
     artifact proxyTuleap [
     <b>Tuleap proxy</b>
     ]
@@ -82,10 +82,10 @@ node server {
     }
 }
 
-Tuleap <-- proxyTuleap
-Centos <-- proxyCentos
-Epel <-- proxyEpel
-Remirepo <-- proxyRemirepo
+Tuleap -(0)- proxyTuleap
+Centos -(0)- proxyCentos
+Epel -(0)- proxyEpel
+Remirepo -(0)- proxyRemirepo
 
 proxyEpel <-- epelrepo
 proxyRemirepo <-- remisafe
