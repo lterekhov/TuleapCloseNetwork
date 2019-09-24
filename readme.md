@@ -37,7 +37,7 @@ https://help.sonatype.com/repomanager3/installation/accessing-the-user-interface
 * Создаем blobstores: **yum**
 * Создаем proxy yum repository (`Repositories > Create repository > yum (proxy)`):
   * **Tuleap**
-    * <u>name</u>: RSSTuleap
+    * <u>name</u>: Tuleap
     * <u>remote storage</u>: https://ci.tuleap.net/yum/tuleap/rhel/6/dev/
     * <u>blob store</u>: yum
   * **Centos**

@@ -11,9 +11,9 @@ enabled=1
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi
 
-[remi-safe-debuginfo]
-name=Remi's RPM repository for Enterprise Linux 6 - $basearch - debuginfo
-baseurl=http://127.0.0.1:8081/repository/remirepo-debug/$basearch/
-enabled=0
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi
+#[remi-safe-debuginfo]
+#name=Remi's RPM repository for Enterprise Linux 6 - $basearch - debuginfo
+#baseurl=http://127.0.0.1:8081/repository/remirepo-debug/$basearch/
+#enabled=0
+#gpgcheck=1
+#gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi

@@ -1,8 +1,8 @@
 ## Tuleap All In One ##
 FROM centos:6
 
-COPY ./repos/RSSTuleap.repo /etc/yum.repos.d/
-COPY ./repos/rss-remi-safe.repo /etc/yum.repos.d/
+COPY ./repos/Tuleap.repo /etc/yum.repos.d/
+COPY ./repos/remi-safe.repo /etc/yum.repos.d/
 
 COPY ./repos/CentOS-Base.repo /etc/yum.repos.d/
 COPY ./repos/CentOS-Vault.repo /etc/yum.repos.d/
@@ -12,7 +12,7 @@ COPY ./repos/CentOS-Debuginfo.repo /etc/yum.repos.d/
 
 
 COPY ./key/RPM-GPG-KEY-remi /etc/pki/rpm-gpg/
-COPY ./key/rsstuleap-gpg.key /etc/pki/rpm-gpg/
+COPY ./key/tuleap-gpg.key /etc/pki/rpm-gpg/
 COPY ./key/epel.repo.key /etc/pki/rpm-gpg/
 
 
