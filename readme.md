@@ -44,8 +44,8 @@ https://help.sonatype.com/repomanager3/installation/accessing-the-user-interface
     * <u>name</u>: centos
     * <u>remote storage</u>: http://mirror.centos.org/centos/
     * <u>blob store</u>: yum
-  * **Epel-Tuleap**
-    * <u>name</u>: epel-tuleap
+  * **Epel**
+    * <u>name</u>: epel
     * <u>remote storage</u>: http://mirror.linux-ia64.org/epel/6/
     * <u>blob store</u>: yum
   * **Remirepo**
